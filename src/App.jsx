@@ -17,8 +17,6 @@ export default function App() {
   function toggleDarkMode (){
     setIsDarkMode(!isDarkMode);
   }
-
-
   // -------------------------------- //
   /* Note filter */
   function filterItems(notes, query) {
@@ -92,7 +90,6 @@ export default function App() {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
   // -------------------------------- //
-
   return (
     <div className={`${isDarkMode ? "dark bg-dark" : "bg-light"} `}>
       <main className="max-container min-h-screen p-4 dark:text-text-dark text-text-light">
