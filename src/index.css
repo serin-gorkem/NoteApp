@@ -7,8 +7,4 @@
         max-width: 1024px;
         margin: 0 auto;
     }
-
-    .note-bg {
-        @apply bg-gradient-to-r from-[#672280] to-[#A626D3];
-    }
 }
