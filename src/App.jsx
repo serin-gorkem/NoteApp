@@ -1,14 +1,13 @@
-import { useEffect, useState,useMemo } from "react";
+import { useEffect, useState,useMemo, useReducer } from "react";
 import CreateNote from "./components/CreateNote";
 import CurrentNote from "./components/CurrentNote";
-import SearchBar from "./components/SearchBar";
-import Header from "./components/Header";
+import SearchBar from "./sections/SearchBar";
+import Header from "./sections/Header";
+import { initialNotes,notesReducer } from "./notesReducer";
 
 export default function App() {
   //localStorage.clear();
-  const [notes, setNotes] = useState(
-    JSON.parse(localStorage.getItem("notes")) || [],
-  );
+  const [notes, dispatch] = useReducer(notesReducer,initialNotes)
   const [query, setQuery] = useState("");
   // -------------------------------- //
     /* Dark Mode */
@@ -36,7 +35,7 @@ export default function App() {
   },[theme])
 
   // -------------------------------- //
-  /* Note filter */
+    /* Filter notes */
 
   function filterItems(notes,query){
     query = query.toLowerCase();
@@ -57,9 +56,6 @@ export default function App() {
 
   // -------------------------------- //
   /* Default Note list */
-  let currentDate = new Date();
-  let fullDate = currentDate.getUTCDate() + "/" + currentDate.getUTCMonth() + 1 + "/" + currentDate.getUTCFullYear();
-
   let notesList = [];
   if (notes.length > 0) {
     notesList = result.map((note) => {
@@ -68,9 +64,8 @@ export default function App() {
           key={note.id}
           id={note.id}
           text={note.text}
-          date={fullDate}
-          deleteNote={deleteNote}
-          saveNote={saveNote}
+          date={note.date}         
+          dispatch={dispatch}
         />
       );
     });
@@ -78,36 +73,6 @@ export default function App() {
     notesList = [];
   }
   // -------------------------------- //
-
-  // -------------------------------- //
-  /* Create, Save and Delete Note */
-  function createNewNote(noteValue) {
-    const newNote = {
-      id: notes.length + 1,
-      text: noteValue,
-      date: {fullDate},
-    };
-    setNotes([...notes, newNote]);
-  }
-  function saveNote(noteValue, noteId) {
-    setNotes((oldNotes) =>
-      oldNotes.map((oldNote) => {
-        if (oldNote.id === noteId) {
-          return {
-            ...oldNote,
-            text: noteValue,
-            date: oldNote.date,
-          };
-        } else {
-          return oldNote;
-        }
-      }),
-    );
-  }
-  function deleteNote(noteId) {
-    const newNotes = notes.filter((note) => note.id !== noteId);
-    setNotes(newNotes);
-  }
 
   /* Save notes to local storage */
   useEffect(() => {
@@ -127,7 +92,7 @@ export default function App() {
         </section>
         <section className="grid grid-cols-3 gap-2 py-4 max-sm:grid-cols-1 ">
           {notesList}
-          <CreateNote createNewNote={createNewNote} />
+          <CreateNote dispatch={dispatch}/>
         </section>
       </main>
     </div>

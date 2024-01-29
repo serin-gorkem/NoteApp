@@ -1,10 +1,19 @@
 import { useState } from "react";
 
 export default function CreateNote(props) {
+  //----------------------------------------------------------------//
   const [noteValue, setNoteValue] = useState("");
+  
+  //----------------------------------------------------------------//
+  let currentDate = new Date();
+  let fullDate = currentDate.getUTCDate() + "/" + currentDate.getUTCMonth() + 1 + "/" + currentDate.getUTCFullYear();
+
+  //----------------------------------------------------------------//
   function updateNote(e) {
     setNoteValue(e.target.value);
   }
+
+  //----------------------------------------------------------------//
   return (
     <div className="flex h-48 flex-col justify-between rounded-xl bg-edit-note-light p-4 shadow-xl dark:bg-edit-note-dark">
       <textarea
@@ -19,7 +28,11 @@ export default function CreateNote(props) {
         <button
           className="rounded-xl bg-note-light px-6 py-1 dark:bg-button-dark"
           onClick={() => {
-            props.createNewNote(noteValue);
+            props.dispatch({
+              type:"create_note",
+              text: noteValue,
+              date: fullDate,
+            })
             setNoteValue("");
           }}
         >

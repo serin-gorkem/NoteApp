@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { PiTrashDuotone, PiX } from "react-icons/pi";
 
-export default function Note(props) {
+export default function CurrentNote(props) {
   const [noteValue, setNoteValue] = useState(props.text ? props.text : "");
   const [noteState, setNoteState] = useState("saved");
   function setNote(e) {
     setNoteValue(e.target.value);
   }
   const changeState = (v) => {
-    return () => setNoteState(v)
-  }
+    return () => setNoteState(v);
+  };
 
   return noteState === "saved" ? (
     // Saved note
@@ -26,7 +26,12 @@ export default function Note(props) {
           </button>
           <PiTrashDuotone
             className="cursor-pointer"
-            onClick={() => props.deleteNote(props.id)}
+            onClick={() =>
+              props.dispatch({
+                type: "delete_note",
+                id: props.id,
+              })
+            }
           />
         </div>
       </div>
@@ -47,16 +52,17 @@ export default function Note(props) {
           <button
             className="rounded-xl bg-note-light px-6 py-1 dark:bg-button-dark"
             onClick={() => {
-              props.saveNote(noteValue, props.id);
-              setNoteState("saved")
+              props.dispatch({
+                type: "edit_note",
+                id: props.id,
+                text: noteValue,
+              });
+              setNoteState("saved");
             }}
           >
             Save
           </button>
-          <PiX
-            className="cursor-pointer"
-            onClick={changeState("saved")}
-          ></PiX>
+          <PiX className="cursor-pointer" onClick={changeState("saved")}></PiX>
         </div>
       </div>
     </div>
