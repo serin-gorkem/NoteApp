@@ -35,6 +35,7 @@ export default function CurrentNote(props) {
         <time>{props.date} </time>
         <div className="flex w-28 items-center justify-between h-full">
           <button
+            name="edit-note"
             className="rounded-xl bg-button-light px-6 py-1 dark:bg-button-dark h-full"
             onClick={changeState("typing")}
           >
@@ -66,6 +67,7 @@ export default function CurrentNote(props) {
         <p>{200 - noteValue.length} remaining </p>
         <div className="flex w-28 items-center justify-between h-full ">
           <button
+            name="save-note"
             className="rounded-xl bg-note-light px-6 py-1 dark:bg-button-dark h-full"
             onClick={() => {
               dispatch({
