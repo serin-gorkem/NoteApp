@@ -3,17 +3,24 @@ import { PiTrashDuotone, PiX } from "react-icons/pi";
 import { NotesDispatchContext } from "./notesContext";
 
 export default function CurrentNote(props) {
+  // This component handles the display of the current note. //
+
+  // ----------------------------------------------------------------//
   const dispatch = useContext(NotesDispatchContext);
   const [noteValue, setNoteValue] = useState(props.text ? props.text : "");
   const [noteState, setNoteState] = useState("saved");
 
+  // ----------------------------------------------------------------//
   function setNote(e) {
     setNoteValue(e.target.value);
   }
+
+  // ----------------------------------------------------------------//
   const changeState = (v) => {
     return () => setNoteState(v);
   };
 
+  // ----------------------------------------------------------------//
   return noteState === "saved" ? (
     // Saved note
     <div className="flex h-48 w-full flex-col justify-between rounded-xl bg-note-light p-4 italic shadow-lg dark:bg-note-dark">

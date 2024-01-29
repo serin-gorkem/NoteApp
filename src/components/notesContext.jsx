@@ -1,9 +1,15 @@
-import { createContext} from "react";
+import { createContext } from "react";
+//----------------------------------------------------------------//
+// Get notes from the browser //
 export const initialNotes = JSON.parse(localStorage.getItem("notes")) || [];
 
+//----------------------------------------------------------------//
+// This context is used on the FilteredNotes component
 export const NotesContext = createContext(null);
 export const NotesDispatchContext = createContext(null);
 
+//----------------------------------------------------------------//
+// Reducer to dispatch changes on both child and parent components. App.js notes.
 export function notesReducer(notes, action) {
   switch (action.type) {
     case "create_note":

@@ -1,3 +1,9 @@
+/**
+ *
+ * Görkem Serin 01/29/2024
+ * Free to use however you like
+ *
+ */
 import { useEffect, useState, useReducer } from "react";
 import {
   initialNotes,
@@ -10,6 +16,8 @@ import SearchBar from "./sections/SearchBar";
 import Header from "./sections/Header";
 import FilteredNotes from "./components/FilteredNotes";
 export default function App() {
+  //Handles notes reducer, query state for search bar, theme state for theme change and displays the components.//
+
   //----------------------------------------------------------------//
   /* States & Reducers */
   const [notes, dispatch] = useReducer(notesReducer, initialNotes);
@@ -55,9 +63,10 @@ export default function App() {
     setQuery(e.target.value);
   }
   //----------------------------------------------------------------//
-
   return (
-    <div className={`${theme === "dark" ? "dark bg-dark" : "bg-light"} font-dancing-script `}>
+    <div
+      className={`${theme === "dark" ? "dark bg-dark" : "bg-light"} font-dancing-script `}
+    >
       <main className="max-container min-h-screen p-4 text-text-light dark:text-text-dark">
         <section className="flex w-full items-center justify-between py-2">
           <Header toggleDarkMode={toggleDarkMode} />
@@ -70,7 +79,7 @@ export default function App() {
             <NotesContext.Provider value={notes}>
               <FilteredNotes query={query} />
             </NotesContext.Provider>
-            <CreateNote/>
+            <CreateNote />
           </NotesDispatchContext.Provider>
         </section>
       </main>
