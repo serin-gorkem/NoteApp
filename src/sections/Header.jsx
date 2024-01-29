@@ -8,7 +8,7 @@ export default function Header(props) {
         Notes
       </h1>
       <button
-        name="theme-toggle-button"
+        aria-label="theme-toggle-button"
         className="rounded-lg bg-button-light px-3 py-1 text-text-light shadow-lg dark:bg-button-dark dark:text-text-dark max-sm:hover:shadow-none "
         onClick={props.toggleDarkMode}
       >

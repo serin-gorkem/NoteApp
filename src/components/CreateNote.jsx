@@ -27,6 +27,7 @@ export default function CreateNote() {
   return (
     <div className="flex h-48 flex-col justify-between gap-2 rounded-xl bg-edit-note-light p-4 shadow-xl dark:bg-edit-note-dark">
       <textarea
+        aria-label="your note text"
         placeholder="Type to add a note..."
         onChange={updateNote}
         value={noteValue}
@@ -36,7 +37,7 @@ export default function CreateNote() {
       <div className="flex items-center justify-between h-16">
         <p>{200 - noteValue.length} remaining </p>
         <button
-          name="create-note-button"
+          aria-label="create-note-button"
           className="rounded-xl bg-note-light px-6 py-1 dark:bg-button-dark h-full"
           onClick={() => {
             dispatch({

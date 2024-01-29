@@ -25,6 +25,7 @@ export default function CurrentNote(props) {
     // Saved note
     <div className="flex h-48 w-full flex-col justify-between gap-2 rounded-xl bg-note-light p-4 italic shadow-lg dark:bg-note-dark">
       <textarea
+        aria-label="your note text"
         onChange={setNote}
         value={props.text}
         maxLength={200}
@@ -35,7 +36,7 @@ export default function CurrentNote(props) {
         <time>{props.date} </time>
         <div className="flex w-28 items-center justify-between h-full">
           <button
-            name="edit-note"
+            aria-label="edit-note"
             className="rounded-xl bg-button-light px-6 py-1 dark:bg-button-dark h-full"
             onClick={changeState("typing")}
           >
@@ -57,6 +58,7 @@ export default function CurrentNote(props) {
     // Edit note
     <div className="flex h-48 flex-col justify-between rounded-xl gap-2 bg-edit-note-light p-4 shadow-xl dark:bg-edit-note-dark">
       <textarea
+        aria-label="your note text"
         placeholder="Type to add a note..."
         onChange={setNote}
         value={noteValue}
@@ -67,7 +69,7 @@ export default function CurrentNote(props) {
         <p>{200 - noteValue.length} remaining </p>
         <div className="flex w-28 items-center justify-between h-full ">
           <button
-            name="save-note"
+            aria-label="save-note"
             className="rounded-xl bg-note-light px-6 py-1 dark:bg-button-dark h-full"
             onClick={() => {
               dispatch({

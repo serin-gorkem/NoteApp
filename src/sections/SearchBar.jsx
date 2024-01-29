@@ -6,6 +6,7 @@ export default function SearchBar(props) {
     <div className="flex w-full items-center justify-center rounded-xl bg-search-bar-light p-3 text-text-light shadow-lg dark:bg-search-bar-dark dark:text-text-dark">
       <PiMagnifyingGlass className="cursor-pointer" />
       <input
+        aria-label="search input"
         placeholder="Type to search..."
         value={props.query}
         onChange={props.onChange}
