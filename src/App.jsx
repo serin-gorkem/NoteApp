@@ -5,7 +5,6 @@ import SearchBar from "./components/SearchBar";
 import Header from "./components/Header";
 
 export default function App() {
-  //localStorage.clear();
   const [notes, setNotes] = useState(
     JSON.parse(localStorage.getItem("notes")) || [],
   );
