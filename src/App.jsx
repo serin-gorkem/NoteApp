@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useMemo } from "react";
 import CreateNote from "./components/CreateNote";
 import Note from "./components/Note";
 import SearchBar from "./components/SearchBar";
@@ -17,10 +17,11 @@ export default function App() {
     return initialTheme ? initialTheme : "light"
   });
 
+
   function getThemeFromLocalStorage() {
     const savedTheme = localStorage.getItem("theme");;
     if (savedTheme) {
-      setTheme(savedTheme)
+      setTheme( savedTheme)
     }
   }
   function toggleDarkMode (){
@@ -33,13 +34,20 @@ export default function App() {
   useEffect(() => {
     getThemeFromLocalStorage();
   },[theme])
+
   // -------------------------------- //
   /* Note filter */
-  function filterItems(notes, query) {
+
+  function filterItems(notes,query){
     query = query.toLowerCase();
-    return notes.filter((item) => item.title.toLowerCase().includes(query));
+    return notes.filter((item) => item.text.toLowerCase().includes(query));
   }
-  const result = filterItems(notes, query);
+
+  const filteredNotes = useMemo(() => {
+    return filterItems(notes, query) 
+  },[notes,query]);
+
+  const result = filteredNotes;
 
   function handleChange(e) {
     setQuery(e.target.value);
@@ -50,6 +58,8 @@ export default function App() {
   // -------------------------------- //
   /* Default Note list */
   let currentDate = new Date();
+  let fullDate = currentDate.getUTCDate() + "/" + currentDate.getUTCMonth() + 1 + "/" + currentDate.getUTCFullYear();
+
   let notesList = [];
   if (notes.length > 0) {
     notesList = result.map((note) => {
@@ -57,8 +67,8 @@ export default function App() {
         <Note
           key={note.id}
           id={note.id}
-          title={note.title}
-          date={currentDate.getUTCDate() + "/" + currentDate.getUTCMonth() + 1 + "/" + currentDate.getUTCFullYear()}
+          text={note.text}
+          date={fullDate}
           deleteNote={deleteNote}
           saveNote={saveNote}
         />
@@ -74,8 +84,8 @@ export default function App() {
   function createNewNote(noteValue) {
     const newNote = {
       id: notes.length + 1,
-      title: noteValue,
-      date: "01/26/2024",
+      text: noteValue,
+      date: {fullDate},
     };
     setNotes([...notes, newNote]);
   }
@@ -85,8 +95,8 @@ export default function App() {
         if (oldNote.id === noteId) {
           return {
             ...oldNote,
-            title: noteValue,
-            date: "27/01/2024",
+            text: noteValue,
+            date: oldNote.date,
           };
         } else {
           return oldNote;
@@ -103,7 +113,6 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
-  
   // -------------------------------- //
   return (
     <div className={`${theme === "dark" ? "dark bg-dark" : "bg-light"} `}>
