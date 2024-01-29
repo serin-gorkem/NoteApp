@@ -23,7 +23,7 @@ export default function CurrentNote(props) {
   // ----------------------------------------------------------------//
   return noteState === "saved" ? (
     // Saved note
-    <div className="flex h-48 w-full flex-col justify-between rounded-xl bg-note-light p-4 italic shadow-lg dark:bg-note-dark">
+    <div className="flex h-48 w-full flex-col justify-between gap-2 rounded-xl bg-note-light p-4 italic shadow-lg dark:bg-note-dark">
       <textarea
         onChange={setNote}
         value={props.text}
@@ -31,17 +31,17 @@ export default function CurrentNote(props) {
         disabled={true}
         className="h-full min-h-6 resize-none bg-transparent text-xl italic focus:outline-none"
       ></textarea>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between h-16">
         <time>{props.date} </time>
-        <div className="flex w-24 items-center justify-between">
+        <div className="flex w-28 items-center justify-between h-full">
           <button
-            className="rounded-xl bg-button-light px-6 py-1 dark:bg-button-dark"
+            className="rounded-xl bg-button-light px-6 py-1 dark:bg-button-dark h-full"
             onClick={changeState("typing")}
           >
             Edit
           </button>
           <PiTrashDuotone
-            className="cursor-pointer"
+            className="cursor-pointer w-16"
             onClick={() =>
               dispatch({
                 type: "delete_note",
@@ -54,7 +54,7 @@ export default function CurrentNote(props) {
     </div>
   ) : (
     // Edit note
-    <div className="flex h-48 flex-col justify-between rounded-xl bg-edit-note-light p-4 shadow-xl dark:bg-edit-note-dark">
+    <div className="flex h-48 flex-col justify-between rounded-xl gap-2 bg-edit-note-light p-4 shadow-xl dark:bg-edit-note-dark">
       <textarea
         placeholder="Type to add a note..."
         onChange={setNote}
@@ -62,11 +62,11 @@ export default function CurrentNote(props) {
         maxLength={200}
         className="h-full min-h-6 resize-none bg-transparent text-xl italic focus:outline-none"
       ></textarea>
-      <div className="flex items-center justify-between">
-        <h3>{200 - noteValue.length} remaining </h3>
-        <div className="flex w-24 items-center justify-between">
+      <div className="flex items-center justify-between h-16 ">
+        <p>{200 - noteValue.length} remaining </p>
+        <div className="flex w-28 items-center justify-between h-full ">
           <button
-            className="rounded-xl bg-note-light px-6 py-1 dark:bg-button-dark"
+            className="rounded-xl bg-note-light px-6 py-1 dark:bg-button-dark h-full"
             onClick={() => {
               dispatch({
                 type: "edit_note",
@@ -78,7 +78,7 @@ export default function CurrentNote(props) {
           >
             Save
           </button>
-          <PiX className="cursor-pointer" onClick={changeState("saved")}></PiX>
+          <PiX className="cursor-pointer  w-16" onClick={changeState("saved")}></PiX>
         </div>
       </div>
     </div>
