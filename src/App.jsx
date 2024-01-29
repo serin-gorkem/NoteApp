@@ -1,8 +1,8 @@
 import { useEffect, useState,useMemo } from "react";
 import CreateNote from "./components/CreateNote";
 import CurrentNote from "./components/CurrentNote";
-import SearchBar from "./components/SearchBar";
-import Header from "./components/Header";
+import SearchBar from "./sections/SearchBar";
+import Header from "./sections/Header";
 
 export default function App() {
   const [notes, setNotes] = useState(
