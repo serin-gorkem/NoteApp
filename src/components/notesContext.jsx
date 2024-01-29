@@ -1,5 +1,8 @@
+import { createContext} from "react";
 export const initialNotes = JSON.parse(localStorage.getItem("notes")) || [];
 
+export const NotesContext = createContext(null);
+export const NotesDispatchContext = createContext(null);
 
 export function notesReducer(notes, action) {
   switch (action.type) {
@@ -28,11 +31,7 @@ export function notesReducer(notes, action) {
       const newNotes = notes.filter((note) => note.id !== action.id);
       return newNotes;
 
-    // case "filter_notes":
-
-
     default:
       throw Error("Unknown action: " + action.type);
   }
 }
-

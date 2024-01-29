@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { NotesDispatchContext } from "./notesContext";
 
 export default function CreateNote(props) {
   //----------------------------------------------------------------//
   const [noteValue, setNoteValue] = useState("");
+  const dispatch = useContext(NotesDispatchContext);
   
   //----------------------------------------------------------------//
   let currentDate = new Date();
@@ -21,14 +23,14 @@ export default function CreateNote(props) {
         onChange={updateNote}
         value={noteValue}
         maxLength={200}
-        className="h-full min-h-6 resize-none bg-transparent placeholder:text-gray-600 focus:outline-none"
+        className="h-full min-h-6 resize-none bg-transparent placeholder:text-gray-600 focus:outline-none italic text-lg "
       ></textarea>
       <div className="flex items-center justify-between">
         <h3>{200 - noteValue.length} remaining </h3>
         <button
           className="rounded-xl bg-note-light px-6 py-1 dark:bg-button-dark"
           onClick={() => {
-            props.dispatch({
+            dispatch({
               type:"create_note",
               text: noteValue,
               date: fullDate,
