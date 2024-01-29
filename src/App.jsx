@@ -1,8 +1,6 @@
 /**
- *
  * Görkem Serin 01/29/2024
  * Free to use however you like
- *
  */
 import { useEffect, useState, useReducer } from "react";
 import {
