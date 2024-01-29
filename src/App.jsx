@@ -1,6 +1,6 @@
 import { useEffect, useState,useMemo } from "react";
 import CreateNote from "./components/CreateNote";
-import Note from "./components/Note";
+import CurrentNote from "./components/CurrentNote";
 import SearchBar from "./components/SearchBar";
 import Header from "./components/Header";
 
@@ -49,7 +49,7 @@ export default function App() {
 
   const result = filteredNotes;
 
-  function handleChange(e) {
+  function updateSearchBar(e) {
     setQuery(e.target.value);
   }
 
@@ -64,7 +64,7 @@ export default function App() {
   if (notes.length > 0) {
     notesList = result.map((note) => {
       return (
-        <Note
+        <CurrentNote
           key={note.id}
           id={note.id}
           text={note.text}
@@ -114,6 +114,8 @@ export default function App() {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
   // -------------------------------- //
+
+
   return (
     <div className={`${theme === "dark" ? "dark bg-dark" : "bg-light"} `}>
       <main className="max-container min-h-screen p-4 dark:text-text-dark text-text-light">
@@ -121,7 +123,7 @@ export default function App() {
           <Header toggleDarkMode={toggleDarkMode} />
         </section>
         <section>
-          <SearchBar query={query} onChange={handleChange} />
+          <SearchBar query={query} onChange={updateSearchBar} />
         </section>
         <section className="grid grid-cols-3 gap-2 py-4 max-sm:grid-cols-1 ">
           {notesList}
